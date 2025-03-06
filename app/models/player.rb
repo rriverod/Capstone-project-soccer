@@ -3,6 +3,7 @@
 # Table name: players
 #
 #  id            :bigint           not null, primary key
+#  avatar        :string
 #  dob           :date
 #  first_name    :string
 #  jersey_number :integer
