@@ -42,7 +42,7 @@ task(:sample_data => :environment) do
     x.save
   end
 
-  80.times do
+  120.times do
     leagues = League.all.sample
     w = Match.new
 
@@ -71,5 +71,36 @@ task(:sample_data => :environment) do
   teams.each do |team|
     matching_players = Player.where({ :team_id => team.id })
     team.update(number_of_players: matching_players.count)
+
+    home_wins = Match.where({ :home_team_id => team.id }).where('home_score > away_score').count
+    away_wins = Match.where({ :away_team_id => team.id }).where('away_score > home_score').count
+    wins = home_wins + away_wins
+
+    home_draws = Match.where({ :home_team_id => team.id }).where('home_score = away_score').count
+    away_draws = Match.where({ :away_team_id => team.id }).where('away_score = home_score').count
+    draws = home_draws + away_draws
+
+    home_losses = Match.where({ :home_team_id => team.id }).where('home_score < away_score').count
+    away_losses = Match.where({ :away_team_id => team.id }).where('away_score < home_score').count
+    losses = home_losses + away_losses
+
+    goals_for = Match.where({ :home_team_id => team.id }).sum(:home_score) + 
+  Match.where({ :away_team_id => team.id }).sum(:away_score)
+     goals_against = Match.where({ :home_team_id => team.id }).sum(:away_score) + 
+  Match.where({ :away_team_id => team.id }).sum(:home_score)
+     gd= goals_for - goals_against 
+     points = (wins * 3) + (draws * 1)
+  
+
+     team.update!(
+      goals_for: goals_for,
+      goals_against: goals_against,
+      goal_difference: gd,
+      wins: wins,
+      draws: draws,
+      losses: losses,
+      points: points
+      )
+
   end
 end

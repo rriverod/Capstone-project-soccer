@@ -84,7 +84,7 @@
       <% matches.each do |match| %>
 
       <tr>
-           <td><%= match.match_date %></td>
+           <td><%= match.match_date.strftime('%b %d, %Y') %></td>
            <td><%= home_teams = Team.where({ :id => match.home_team_id }).at(0).team_name%></td>
            <td><%= match.home_score %></td>
            <td><%= match.away_score %></td>
@@ -119,7 +119,7 @@
   <img src=<%=a_player.avatar%> class="card-img-top card-img-top-RR" alt="...">
   <div class="card-body">
     <h5 class="card-title text-center fs-4"><%= a_player.first_name%> <%=a_player.last_name%></h5>
-    <h6 class="card-subtitle mb-2 text-center text-body-secondary"><%=a_player.dob%></h6>
+    <h6 class="card-subtitle mb-2 text-center text-body-secondary"><%=a_player.dob.strftime('%b %d, %Y')%></h6>
     <h6 class="card-text fw-bold">Position: <%=a_player.position%></h6>
     <h6 class="card-text fw-bold">Jersey number: <%=a_player.jersey_number%></h6>
     <a  class="align-center btn btn-primary" href="/players/<%=a_player.id%>" >Show details</a>
