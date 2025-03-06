@@ -20,16 +20,14 @@
   <div class="card-body">
     <h5 class="card-title text-center fs-3"><%= a_league.league_name %></h5>
     
-    <div>
     <h6 class="card-text fw-bold">Number of teams: <%=a_league.number_of_teams%></h6>
-    </div>
-    <div><h6 class="card-text fw-bold">Start date: <%=a_league.start_date%></h6></div>
-    <div><h6 class="card-text fw-bold">End date: <%=a_league.end_date%></h6></div>
+    <h6 class="card-text fw-bold">Start date: <%=a_league.start_date%></h6>
+    <h6 class="card-text fw-bold">End date: <%=a_league.end_date%></h6>
     
-    </div>
-    <div class="text-center"> <a href="/leagues/<%=a_league.id%>" class="btn btn-primary ">Show details</a></div>
+    <a href="/leagues/<%=a_league.id%>" class="btn btn-primary ">Show details</a>
 
   </div>
+</div>
 </div>
 </div>
 <% end %>

@@ -9,9 +9,9 @@
       </div>
     </div>
 
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
+    <table class="table table-striped table-hover ">
+      <thead >
+        <tr >
           <th scope="col">Position</th>
           <th scope="col">Team name</th>
           <th scope="col">Number of players</th>
@@ -34,17 +34,17 @@
             <td><%= a_team.number_of_players %></td>
             <td>
               <% home_wins = Match.where({ :home_team_id => a_team.id }).where('home_score > away_score').count%>
-              <% away_wins = Match.where({ :home_team_id => a_team.id }).where('away_score > home_score').count%>
+              <% away_wins = Match.where({ :away_team_id => a_team.id }).where('away_score > home_score').count%>
               <%=wins = home_wins + away_wins%>
             </td>
             <td>
               <% home_draws = Match.where({ :home_team_id => a_team.id }).where('home_score = away_score').count%>
-              <% away_draws = Match.where({ :home_team_id => a_team.id }).where('away_score = home_score').count%>
+              <% away_draws = Match.where({ :away_team_id => a_team.id }).where('away_score = home_score').count%>
               <%=draws = home_draws + away_draws%>
             </td>
             <td>
               <% home_losses = Match.where({ :home_team_id => a_team.id }).where('home_score < away_score').count%>
-              <% away_losses = Match.where({ :home_team_id => a_team.id }).where('away_score < home_score').count%>
+              <% away_losses = Match.where({ :away_team_id => a_team.id }).where('away_score < home_score').count%>
               <%=losses = home_losses + away_losses%>
             </td>
             <td><%= goals_for = Match.where({ :home_team_id => a_team.id }).sum(:home_score) + 
@@ -162,5 +162,5 @@
     .card-img-top-RR {
        width: 100%;
        height: 250px;
-       object-fit: cover;
+       object-fit: cover;}
   </style>

@@ -11,8 +11,11 @@ class TeamsController < ApplicationController
     the_id = params.fetch("path_id")
 
     matching_teams = Team.where({ :id => the_id })
+    @list_of_players = Player.where({ :team_id => the_id })
 
     @the_team = matching_teams.at(0)
+
+    
 
     render({ :template => "teams/show" })
   end
@@ -22,7 +25,7 @@ class TeamsController < ApplicationController
     the_team.team_id = params.fetch("query_team_id")
     the_team.team_name = params.fetch("query_team_name")
     the_team.number_of_players = params.fetch("query_number_of_players")
-    the_team.position = params.fetch("query_position")
+
 
     if the_team.valid?
       the_team.save
