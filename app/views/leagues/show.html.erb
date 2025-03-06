@@ -1,118 +1,166 @@
 <div>
   <div>
-    <h1>
-      League #<%= @the_league.id %> details
-    </h1>
-
-    <div>
-      <div>
-        <a href="/leagues">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_league/<%= @the_league.id %>">
-          Delete league
-        </a>
+    <div class="d-flex justify-content-center">
+      <div class="card border-0" style="width: 18rem;">
+        <img src=<%=@the_league.image%> class="card-img-top card-img-top-RR" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center fs-3"><%= @the_league.league_name %></h5>
+        </div>
       </div>
     </div>
 
-    <dl>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Position</th>
+          <th scope="col">Team name</th>
+          <th scope="col">Number of players</th>
+          <th scope="col">Wins</th>
+          <th scope="col">Draws</th>
+          <th scope="col">Losses</th>
+          <th scope="col">Goals for</th>
+          <th scope="col">Goals against</th>
+          <th scope="col">GD</th>
+          <th scope="col">Points</th>
+          <th scope="col">Show details</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
 
-      <dt>
-        League name
-      </dt>
-      <dd>
-        <%= @the_league.league_name %>
-      </dd>
+        <% @matching_teams.each_with_index do |a_team, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= a_team.team_name %></td>
+            <td><%= a_team.number_of_players %></td>
+            <td>
+              <% home_wins = Match.where({ :home_team_id => a_team.id }).where('home_score > away_score').count%>
+              <% away_wins = Match.where({ :home_team_id => a_team.id }).where('away_score > home_score').count%>
+              <%=wins = home_wins + away_wins%>
+            </td>
+            <td>
+              <% home_draws = Match.where({ :home_team_id => a_team.id }).where('home_score = away_score').count%>
+              <% away_draws = Match.where({ :home_team_id => a_team.id }).where('away_score = home_score').count%>
+              <%=draws = home_draws + away_draws%>
+            </td>
+            <td>
+              <% home_losses = Match.where({ :home_team_id => a_team.id }).where('home_score < away_score').count%>
+              <% away_losses = Match.where({ :home_team_id => a_team.id }).where('away_score < home_score').count%>
+              <%=losses = home_losses + away_losses%>
+            </td>
+            <td><%= goals_for = Match.where({ :home_team_id => a_team.id }).sum(:home_score) + 
+          Match.where({ :away_team_id => a_team.id }).sum(:away_score)%></td>
+            <td><%= goals_against = Match.where({ :home_team_id => a_team.id }).sum(:away_score) + 
+          Match.where({ :away_team_id => a_team.id }).sum(:home_score)%></td>
+            <td><%= gd= goals_for - goals_against %></td>
+            <td><%= points = (wins * 3) + (draws * 1)%></td>
+            <td><a href="/teams/<%=a_team.id%>" class="btn btn-primary ">Show details</a></td>
 
-      <dt>
-        Start date
-      </dt>
-      <dd>
-        <%= @the_league.start_date %>
-      </dd>
+            <%a_team.update!(
+              goals_for: goals_for,
+              goals_against: goals_against,
+              goal_difference: gd,
+              wins: wins,
+              draws: draws,
+              losses: losses,
+              points: points
+              )%>
+          <%end%>
+        
+        </tbody>
+      </table>
 
-      <dt>
-        End date
-      </dt>
-      <dd>
-        <%= @the_league.end_date %>
-      </dd>
+      <h1>
 
-      <dt>
-        Number of teams
-      </dt>
-      <dd>
-        <%= @the_league.number_of_teams %>
-      </dd>
+      </h1>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_league.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_league.updated_at) %> ago
-      </dd>
-    </dl>
-  </div>
-</div>
-
-<hr>
-
-
-<div>
-  <div>
-    <h2>
-      Edit league
-    </h2>
-
-    <form action="/modify_league/<%= @the_league.id %>"  method="post" >
-    
       <div>
-        <label for="league_name_box">
+        <div>
+          <a href="/delete_league/<%= @the_league.id %>">
+            Delete league
+          </a>
+        </div>
+      </div>
+
+      <dl>
+
+        <dt>
           League name
-        </label>
+        </dt>
+        <dd>
+          <%= @the_league.league_name %>
+        </dd>
 
-        <input type="text" id="league_name_box" name="query_league_name" value="<%= @the_league.league_name %>">
-      </div>
-
-      <div>
-        <label for="start_date_box">
+        <dt>
           Start date
-        </label>
+        </dt>
+        <dd>
+          <%= @the_league.start_date %>
+        </dd>
 
-        <input type="date" id="start_date_box" name="query_start_date" value="<%= @the_league.start_date %>">
-      </div>
-
-      <div>
-        <label for="end_date_box">
+        <dt>
           End date
-        </label>
+        </dt>
+        <dd>
+          <%= @the_league.end_date %>
+        </dd>
 
-        <input type="date" id="end_date_box" name="query_end_date" value="<%= @the_league.end_date %>">
-      </div>
-
-      <div>
-        <label for="number_of_teams_box">
-          Number of teams
-        </label>
-
-        <input type="text" id="number_of_teams_box" name="query_number_of_teams" value="<%= @the_league.number_of_teams %>">
-      </div>
-
-      <button>
-        Update league
-      </button>
-    </form>
+      </dl>
+    </div>
   </div>
-</div>
 
-<hr>
+  <hr>
+
+  <div>
+    <div>
+      <h2>
+        Edit league
+      </h2>
+
+      <form action="/modify_league/<%= @the_league.id %>"  method="post" >
+
+        <div>
+          <label for="league_name_box">
+            League name
+          </label>
+
+          <input type="text" id="league_name_box" name="query_league_name" value="<%= @the_league.league_name %>">
+        </div>
+
+        <div>
+          <label for="start_date_box">
+            Start date
+          </label>
+
+          <input type="date" id="start_date_box" name="query_start_date" value="<%= @the_league.start_date %>">
+        </div>
+
+        <div>
+          <label for="end_date_box">
+            End date
+          </label>
+
+          <input type="date" id="end_date_box" name="query_end_date" value="<%= @the_league.end_date %>">
+        </div>
+
+        <div>
+          <label for="number_of_teams_box">
+            Number of teams
+          </label>
+
+          <input type="text" id="number_of_teams_box" name="query_number_of_teams" value="<%= @the_league.number_of_teams %>">
+        </div>
+
+        <button>
+          Update league
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+  <style>
+    .card-img-top-RR {
+       width: 100%;
+       height: 250px;
+       object-fit: cover;
+  </style>

@@ -11,6 +11,8 @@ class LeaguesController < ApplicationController
     the_id = params.fetch("path_id")
 
     matching_leagues = League.where({ :id => the_id })
+    @matching_teams = Team.where({ :league_id => the_id })
+    @matching_teams = @matching_teams.order(points: :desc)
 
     @the_league = matching_leagues.at(0)
 

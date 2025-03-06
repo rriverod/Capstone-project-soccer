@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  end_date        :date
+#  image           :string
 #  league_name     :string
 #  location        :string
 #  number_of_teams :integer
