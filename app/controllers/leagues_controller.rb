@@ -19,13 +19,18 @@ class LeaguesController < ApplicationController
     render({ :template => "leagues/show" })
   end
 
+  def backdoor
+    render({:template => "leagues/backdoor"})
+
+  end
+
   def create
     the_league = League.new
-    the_league.league_id = params.fetch("query_league_id")
     the_league.league_name = params.fetch("query_league_name")
     the_league.start_date = params.fetch("query_start_date")
     the_league.end_date = params.fetch("query_end_date")
     the_league.number_of_teams = params.fetch("query_number_of_teams")
+    the_league.image = params.fetch("query_image")
 
     if the_league.valid?
       the_league.save

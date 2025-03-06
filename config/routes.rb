@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   # READ
   get("/leagues", { :controller => "leagues", :action => "index" })
 
+  
+  get("/leagues/backdoor", { :controller => "leagues", :action => "backdoor" })
+
   get("/leagues/:path_id", { :controller => "leagues", :action => "show" })
+
 
   # UPDATE
 
