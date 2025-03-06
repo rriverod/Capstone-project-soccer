@@ -45,6 +45,25 @@ task(:sample_data => :environment) do
     x.save
   end
 
+  80.times do
+    leagues = League.all.sample
+    w = Match.new
+
+    w.home_score = rand(0..5)
+    w.away_score = rand(0..5)
+    w.match_date = Faker::Date.between(from: leagues.start_date, to: leagues.end_date)
+    w.league_id = leagues.id
+    w.save
+  end
+  
+  
+
+  #  away_team_id :integer
+  #  home_team_id :integer
+  
+
+
+
   teams = Team.all
   leagues = League.all
 
