@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Team #<%= @the_team.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/teams">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_team/<%= @the_team.id %>">
+          Delete team
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Team
+      </dt>
+      <dd>
+        <%= @the_team.team_id %>
+      </dd>
+
+      <dt>
+        Team name
+      </dt>
+      <dd>
+        <%= @the_team.team_name %>
+      </dd>
+
+      <dt>
+        Number of players
+      </dt>
+      <dd>
+        <%= @the_team.number_of_players %>
+      </dd>
+
+      <dt>
+        Position
+      </dt>
+      <dd>
+        <%= @the_team.position %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_team.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_team.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit team
+    </h2>
+
+    <form action="/modify_team/<%= @the_team.id %>"  method="post" >
+      <div>
+        <label for="team_id_box">
+          Team
+        </label>
+
+        <input type="text" id="team_id_box" name="query_team_id" value="<%= @the_team.team_id %>">
+      </div>
+
+      <div>
+        <label for="team_name_box">
+          Team name
+        </label>
+
+        <input type="text" id="team_name_box" name="query_team_name" value="<%= @the_team.team_name %>">
+      </div>
+
+      <div>
+        <label for="number_of_players_box">
+          Number of players
+        </label>
+
+        <input type="text" id="number_of_players_box" name="query_number_of_players" value="<%= @the_team.number_of_players %>">
+      </div>
+
+      <div>
+        <label for="position_box">
+          Position
+        </label>
+
+        <input type="text" id="position_box" name="query_position" value="<%= @the_team.position %>">
+      </div>
+
+      <button>
+        Update team
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

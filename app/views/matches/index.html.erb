@@ -1,0 +1,166 @@
+<div>
+  <div>
+    <h1>
+      List of all matches
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new match
+    </h2>
+
+    <form action="/insert_match" method="post">
+      <div>
+        <label for="league_id_box">
+          League
+        </label>
+
+        <input type="text" id="league_id_box" name="query_league_id">
+      </div>
+
+      <div>
+        <label for="home_team_id_box">
+          Home team
+        </label>
+
+        <input type="text" id="home_team_id_box" name="query_home_team_id">
+      </div>
+
+      <div>
+        <label for="away_team_id_box">
+          Away team
+        </label>
+
+        <input type="text" id="away_team_id_box" name="query_away_team_id">
+      </div>
+
+      <div>
+        <label for="match_date_box">
+          Match date
+        </label>
+
+        <input type="date" id="match_date_box" name="query_match_date">
+      </div>
+
+      <div>
+        <label for="home_score_box">
+          Home score
+        </label>
+
+        <input type="text" id="home_score_box" name="query_home_score">
+      </div>
+
+      <div>
+        <label for="away_score_box">
+          Away score
+        </label>
+
+        <input type="text" id="away_score_box" name="query_away_score">
+      </div>
+
+      <button>
+        Create match
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          League
+        </th>
+
+        <th>
+          Home team
+        </th>
+
+        <th>
+          Away team
+        </th>
+
+        <th>
+          Match date
+        </th>
+
+        <th>
+          Home score
+        </th>
+
+        <th>
+          Away score
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_matches.each do |a_match| %>
+      <tr>
+        <td>
+          <%= a_match.id %>
+        </td>
+
+        <td>
+          <%= a_match.league_id %>
+        </td>
+
+        <td>
+          <%= a_match.home_team_id %>
+        </td>
+
+        <td>
+          <%= a_match.away_team_id %>
+        </td>
+
+        <td>
+          <%= a_match.match_date %>
+        </td>
+
+        <td>
+          <%= a_match.home_score %>
+        </td>
+
+        <td>
+          <%= a_match.away_score %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_match.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_match.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/matches/<%= a_match.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

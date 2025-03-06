@@ -1,0 +1,146 @@
+<div>
+  <div>
+    <h1>
+      Match #<%= @the_match.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/matches">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_match/<%= @the_match.id %>">
+          Delete match
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        League
+      </dt>
+      <dd>
+        <%= @the_match.league_id %>
+      </dd>
+
+      <dt>
+        Home team
+      </dt>
+      <dd>
+        <%= @the_match.home_team_id %>
+      </dd>
+
+      <dt>
+        Away team
+      </dt>
+      <dd>
+        <%= @the_match.away_team_id %>
+      </dd>
+
+      <dt>
+        Match date
+      </dt>
+      <dd>
+        <%= @the_match.match_date %>
+      </dd>
+
+      <dt>
+        Home score
+      </dt>
+      <dd>
+        <%= @the_match.home_score %>
+      </dd>
+
+      <dt>
+        Away score
+      </dt>
+      <dd>
+        <%= @the_match.away_score %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_match.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_match.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit match
+    </h2>
+
+    <form action="/modify_match/<%= @the_match.id %>"  method="post" >
+      <div>
+        <label for="league_id_box">
+          League
+        </label>
+
+        <input type="text" id="league_id_box" name="query_league_id" value="<%= @the_match.league_id %>">
+      </div>
+
+      <div>
+        <label for="home_team_id_box">
+          Home team
+        </label>
+
+        <input type="text" id="home_team_id_box" name="query_home_team_id" value="<%= @the_match.home_team_id %>">
+      </div>
+
+      <div>
+        <label for="away_team_id_box">
+          Away team
+        </label>
+
+        <input type="text" id="away_team_id_box" name="query_away_team_id" value="<%= @the_match.away_team_id %>">
+      </div>
+
+      <div>
+        <label for="match_date_box">
+          Match date
+        </label>
+
+        <input type="date" id="match_date_box" name="query_match_date" value="<%= @the_match.match_date %>">
+      </div>
+
+      <div>
+        <label for="home_score_box">
+          Home score
+        </label>
+
+        <input type="text" id="home_score_box" name="query_home_score" value="<%= @the_match.home_score %>">
+      </div>
+
+      <div>
+        <label for="away_score_box">
+          Away score
+        </label>
+
+        <input type="text" id="away_score_box" name="query_away_score" value="<%= @the_match.away_score %>">
+      </div>
+
+      <button>
+        Update match
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
