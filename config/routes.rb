@@ -34,6 +34,8 @@ Rails.application.routes.draw do
 
   # READ
   get("/teams", { :controller => "teams", :action => "index" })
+  
+  get("/teams/backdoor", { :controller => "teams", :action => "backdoor" })
 
   get("/teams/:path_id", { :controller => "teams", :action => "show" })
 

@@ -20,11 +20,25 @@ class TeamsController < ApplicationController
     render({ :template => "teams/show" })
   end
 
+  def backdoor
+    render({:template => "teams/backdoor"})
+
+  end
+
   def create
     the_team = Team.new
-    the_team.team_id = params.fetch("query_team_id")
     the_team.team_name = params.fetch("query_team_name")
     the_team.number_of_players = params.fetch("query_number_of_players")
+    this_league_name = params.fetch("query_league_name")
+    league= League.where({:league_name => this_league_name}).at(0)
+    the_team.league_id = league.id
+    the_team.goals_for = params.fetch("query_goals_for")
+    the_team.goals_against = params.fetch("query_goals_against")
+    the_team.goal_difference = params.fetch("query_goal_difference")
+    the_team.wins = params.fetch("query_wins")
+    the_team.draws = params.fetch("query_draws")
+    the_team.losses = params.fetch("query_losses")
+    the_team.points = params.fetch("query_points")
 
 
     if the_team.valid?
