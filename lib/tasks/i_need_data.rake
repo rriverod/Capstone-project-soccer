@@ -48,7 +48,7 @@ task(:sample_data => :environment) do
 
     w.home_score = rand(0..5)
     w.away_score = rand(0..5)
-    w.match_date = Faker::Date.between(from: leagues.start_date, to: leagues.end_date)
+    w.match_date = Faker::Date.between(from: leagues.start_date, to: "2025-03-5")
 
     matching_teams = Team.where({ :league_id => leagues.id })
     w.home_team_id = matching_teams.sample.id
