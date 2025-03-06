@@ -5,26 +5,6 @@ task(:sample_data => :environment) do
     League.destroy_all
   end
 
-  300.times do
-    x = Player.new
-
-    x.first_name = Faker::Name.first_name
-    x.last_name = Faker::Name.last_name
-    x.dob = Faker::Date.birthday(min_age: 0, max_age: 35)
-    x.position = Faker::Sports::Football.position
-    x.jersey_number = rand(1..30)
-    x.team_id =rand(1..24)
-
-    x.save
-  end
-
-  24.times do
-    y = Team.new
-
-    y.team_name = Faker::Sports::Football.team
-    y.league_id = rand(1..3)
-    y.save
-  end
 
   3.times do
     z = League.new
@@ -35,6 +15,48 @@ task(:sample_data => :environment) do
     z.location = Faker::Address.street_address
     
     z.save
+  end
+
+  
+
+  24.times do
+    leagues = League.all.sample
+
+    y = Team.new
+
+    y.team_name = Faker::Sports::Football.team
+    y.league_id = leagues.id
+    y.save
+  end
+
+  
+
+  300.times do
+    teams = Team.all.sample
+    x = Player.new
+
+    x.first_name = Faker::Name.first_name
+    x.last_name = Faker::Name.last_name
+    x.dob = Faker::Date.birthday(min_age: 0, max_age: 35)
+    x.position = Faker::Sports::Football.position
+    x.jersey_number = rand(1..30)
+    x.team_id =teams.id
+
+    x.save
+  end
+
+  teams = Team.all
+  leagues = League.all
+
+  leagues.each do |league|
+    matching_teams = Team.where({ :league_id => league.id })
+    league.update(number_of_teams: matching_teams.count)
+  end
+
+
+  teams.each do |team|
+    matching_players = Player.where({ :team_id => team.id })
+    team.update(number_of_players: matching_players.count)
   end
 
 
