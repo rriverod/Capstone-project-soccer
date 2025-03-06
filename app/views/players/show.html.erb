@@ -1,9 +1,19 @@
 <div>
   <div>
-    <h1>
-      Player #<%= @the_player.id %> details
-    </h1>
+    <div class="d-flex justify-content-center">
+      <div class="card border-0" style="width: 18rem;">
+        <img src=<%=@the_player.avatar%> class="card-img-top card-img-top-RR" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center fs-3"><%= @the_player.first_name %> <%= @the_player.last_name %></h5>
+        </div>
+      </div>
+    </div>
 
+
+
+<div>
+  <div>
+    
     <div>
       <div>
         <a href="/players">
@@ -19,27 +29,7 @@
     </div>
 
     <dl>
-      <dt>
-        Player
-      </dt>
-      <dd>
-        <%= @the_player.id %>
-      </dd>
-
-      <dt>
-        First name
-      </dt>
-      <dd>
-        <%= @the_player.first_name %>
-      </dd>
-
-      <dt>
-        Last name
-      </dt>
-      <dd>
-        <%= @the_player.last_name %>
-      </dd>
-
+      
       <dt>
         Position
       </dt>
@@ -68,19 +58,7 @@
         <%= @the_player.team_id %>
       </dd>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_player.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_player.updated_at) %> ago
-      </dd>
+      
     </dl>
   </div>
 </div>
