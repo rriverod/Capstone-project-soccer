@@ -8,6 +8,18 @@
 </div>
 
 <div>
+ <div>
+    <h1 class=" fs-2">
+      League
+    </h1>
+
+</div>
+   <a class="align-center btn btn-success" href="/leagues/<%=id=League.where({:id => @the_team.league_id}).at(0).id%>" ><%=league=League.where({:id => @the_team.league_id}).at(0).league_name%></a>
+</div>
+
+<hr>
+
+<div>
     <h1 class="fs-2">
       Summary
     </h1>
