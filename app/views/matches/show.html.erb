@@ -22,10 +22,10 @@
       <tr>
            <td><a class="btn btn-primary" href="/leagues/<%=Team.where({ :id => @the_match.home_team_id }).at(0).league_id%>"><%= name = League.where({:id =>Team.where({ :id => @the_match.home_team_id }).at(0).league_id}).at(0).league_name%></a></td>
            <td><%= @the_match.match_date.strftime('%b %d, %Y') %></td>
-           <td><%= home_teams = Team.where({ :id => @the_match.home_team_id }).at(0).team_name%></td>
+           <td><a class="btn btn-secondary" href="/teams/<%=@the_match.home_team_id%>"><%= home_teams = Team.where({ :id => @the_match.home_team_id }).at(0).team_name%></a></td>
            <td><%= @the_match.home_score %></td>
            <td><%= @the_match.away_score %></td>
-           <td><%= away_teams = Team.where({ :id => @the_match.away_team_id }).at(0).team_name%></td>
+           <td><a class="btn btn-secondary" href="/teams/<%=@the_match.away_team_id%>"><%= away_teams = Team.where({ :id => @the_match.away_team_id }).at(0).team_name%></a></td>
 
       </tr>
       
@@ -46,27 +46,27 @@
 
     <form action="/modify_match/<%= @the_match.id %>"  method="post" >
       <div>
-        <label for="league_id_box">
+        <label for="league_name_box">
           League
         </label>
 
-        <input type="text" id="league_id_box" name="query_league_id" value="<%= @the_match.league_id %>">
+        <input type="text" id="league_name_box" name="query_league_name" value="<%=League.where({:id=>@the_match.league_id}).at(0).league_name%>">
       </div>
 
       <div>
-        <label for="home_team_id_box">
+        <label for="home_team_name_box">
           Home team
         </label>
 
-        <input type="text" id="home_team_id_box" name="query_home_team_id" value="<%= @the_match.home_team_id %>">
+        <input type="text" id="home_team_name_box" name="query_home_team_name" value="<%= Team.where({:id=>@the_match.home_team_id}).at(0).team_name %>">
       </div>
 
       <div>
-        <label for="away_team_id_box">
+        <label for="away_team_name_box">
           Away team
         </label>
 
-        <input type="text" id="away_team_id_box" name="query_away_team_id" value="<%= @the_match.away_team_id %>">
+        <input type="text" id="away_team_name_box" name="query_away_team_name" value="<%= Team.where({:id=>@the_match.away_team_id}).at(0).team_name %>">
       </div>
 
       <div>

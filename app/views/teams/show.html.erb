@@ -89,6 +89,7 @@
           <th scope="col">Home goals</th>
           <th scope="col">Away goals</th>
           <th scope="col">Away Team</th>
+          <th scope="col"></th>
       </tr>
       </thead>
       <tbody class="table-group-divider">
@@ -101,6 +102,7 @@
            <td><%= match.home_score %></td>
            <td><%= match.away_score %></td>
            <td><%= away_teams = Team.where({ :id => match.away_team_id }).at(0).team_name%></td>
+           <td><a  class="align-center btn btn-primary" href="/matches/<%=match.id%>" >Show details</a></td>
       </tr>
       <%end%>
         

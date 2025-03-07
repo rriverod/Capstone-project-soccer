@@ -25,7 +25,7 @@
       <% matches.each do |match| %>
 
       <tr>
-           <td><a class="btn btn-primary" href="/leagues/<%=Team.where({ :id => match.home_team_id }).at(0).league_id%>"><%= name = League.where({:id =>Team.where({ :id => match.home_team_id }).at(0).league_id}).at(0).league_name%></a></td>
+           <td><%= name = League.where({:id =>Team.where({ :id => match.home_team_id }).at(0).league_id}).at(0).league_name%></td>
            <td><%= match.match_date.strftime('%b %d, %Y') %></td>
            <td><%= home_teams = Team.where({ :id => match.home_team_id }).at(0).team_name%></td>
            <td><%= match.home_score %></td>

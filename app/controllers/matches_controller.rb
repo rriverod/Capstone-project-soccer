@@ -77,9 +77,41 @@ class MatchesController < ApplicationController
     the_id = params.fetch("path_id")
     the_match = Match.where({ :id => the_id }).at(0)
 
-    the_match.league_id = params.fetch("query_league_id")
-    the_match.home_team_id = params.fetch("query_home_team_id")
-    the_match.away_team_id = params.fetch("query_away_team_id")
+    this_league_name = params.fetch("query_league_name")
+    league= League.where({:league_name => this_league_name}).at(0)
+
+
+    if league==nil
+      flash[:alert] = "League '#{this_league_name}' not found."
+      redirect_to("/matches") and return
+
+    else
+    the_match.league_id = league.id
+    end
+
+    home_team_name = params.fetch("query_home_team_name")
+    teamh= Team.where({:team_name => home_team_name}).at(0)
+    
+    if teamh==nil
+      flash[:alert] = "Team '#{home_team_name}' not found."
+      redirect_to("/matches") and return
+
+    else
+    the_match.home_team_id = teamh.id
+
+    end
+    
+    
+    away_team_name = params.fetch("query_away_team_name")
+    teama= Team.where({:team_name => away_team_name}).at(0)
+    if teama==nil
+      flash[:alert] = "Team '#{away_team_name}' not found."
+      redirect_to("/matches") and return
+
+    else
+    
+    the_match.away_team_id = teama.id
+    end
     the_match.match_date = params.fetch("query_match_date")
     the_match.home_score = params.fetch("query_home_score")
     the_match.away_score = params.fetch("query_away_score")
