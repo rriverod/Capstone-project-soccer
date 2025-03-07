@@ -20,7 +20,7 @@
   <div class="card-body">
     <h5 class="card-title text-center fs-3"><%= a_league.league_name %></h5>
     
-    <h6 class="card-text fw-bold">Number of teams: <%=a_league.number_of_teams%></h6>
+    <h6 class="card-text fw-bold">Number of teams: <%= num_teams= Team.where({ :league_id => a_league.id }).count%></h6>
     <h6 class="card-text fw-bold">Start date: <%=a_league.start_date%></h6>
     <h6 class="card-text fw-bold">End date: <%=a_league.end_date%></h6>
     
@@ -30,6 +30,10 @@
 </div>
 </div>
 </div>
+
+ <%a_league.update!(
+              number_of_teams: num_teams,
+              )%>
 <% end %>
 </div>
 
@@ -47,9 +51,3 @@
     object-fit: cover;     
 }
 </style>
-
-
-
-
-
-

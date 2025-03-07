@@ -31,7 +31,7 @@
           <tr>
             <td><%= index + 1 %></td>
             <td><%= a_team.team_name %></td>
-            <td><%= a_team.number_of_players %></td>
+            <td><%= num_players= Player.where({ :team_id => a_team.id }).count %></td>
             <td>
               <% home_wins = Match.where({ :home_team_id => a_team.id }).where('home_score > away_score').count%>
               <% away_wins = Match.where({ :away_team_id => a_team.id }).where('away_score > home_score').count%>
@@ -62,7 +62,8 @@
               wins: wins,
               draws: draws,
               losses: losses,
-              points: points
+              points: points,
+              number_of_players: num_players,
               )%>
           <%end%>
         
