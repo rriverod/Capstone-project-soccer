@@ -14,5 +14,7 @@
 #  team_id       :integer
 #
 class Player < ApplicationRecord
-end
 
+  validates :dob, presence: true
+
+end

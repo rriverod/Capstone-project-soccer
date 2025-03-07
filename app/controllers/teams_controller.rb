@@ -31,7 +31,16 @@ class TeamsController < ApplicationController
     the_team.number_of_players = params.fetch("query_number_of_players")
     this_league_name = params.fetch("query_league_name")
     league= League.where({:league_name => this_league_name}).at(0)
+    if league==nil
+      flash[:alert] = "League '#{this_league_name}' not found."
+      redirect_to("/teams") and return
+
+    else
     the_team.league_id = league.id
+    end
+
+
+    
     the_team.goals_for = params.fetch("query_goals_for")
     the_team.goals_against = params.fetch("query_goals_against")
     the_team.goal_difference = params.fetch("query_goal_difference")

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
  
-  get("/", { :controller => "leagues" , :action => "index" })
+
+  root to: "leagues#index"
+
+  #get("/", { :controller => "leagues" , :action => "index" })
 
   #------------------------------
 

@@ -29,9 +29,16 @@ class PlayersController < ApplicationController
     the_player.position = params.fetch("query_position")
     the_player.jersey_number = params.fetch("query_jersey_number")
     the_player.dob = params.fetch("query_dob")
+      
     this_team_name = params.fetch("query_team_name")
     team= Team.where({:team_name => this_team_name}).at(0)
+    if team==nil
+    the_player.team_id = Team.all.sample.id
+    else
     the_player.team_id = team.id
+    end
+
+
     the_player.avatar = params.fetch("query_avatar")
 
     if the_player.valid?

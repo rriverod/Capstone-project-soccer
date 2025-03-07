@@ -13,4 +13,9 @@
 #  league_id    :integer
 #
 class Match < ApplicationRecord
+
+  validates :league_id, presence: true
+  validates :match_date, presence: true
+
+
 end
