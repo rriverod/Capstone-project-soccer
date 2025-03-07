@@ -56,6 +56,9 @@ Rails.application.routes.draw do
   # READ
   get("/players", { :controller => "players", :action => "index" })
 
+  get("/players/backdoor", { :controller => "players", :action => "backdoor" })
+
+
   get("/players/:path_id", { :controller => "players", :action => "show" })
 
   # UPDATE
@@ -74,6 +77,9 @@ Rails.application.routes.draw do
 
   # READ
   get("/matches", { :controller => "matches", :action => "index" })
+
+  get("/matches/backdoor", { :controller => "matches", :action => "backdoor" })
+
 
   get("/matches/:path_id", { :controller => "matches", :action => "show" })
 

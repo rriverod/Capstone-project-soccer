@@ -7,6 +7,12 @@ class MatchesController < ApplicationController
     render({ :template => "matches/index" })
   end
 
+
+  def backdoor
+    render({:template => "matches/backdoor"})
+
+  end
+
   def show
     the_id = params.fetch("path_id")
 

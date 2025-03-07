@@ -7,6 +7,11 @@ class PlayersController < ApplicationController
     render({ :template => "players/index" })
   end
 
+  def backdoor
+    render({:template => "players/backdoor"})
+
+  end
+
   def show
     the_id = params.fetch("path_id")
 
