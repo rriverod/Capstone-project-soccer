@@ -35,6 +35,16 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/matches">Matches</a>
             </li>
+
+            <%if current_user!=nil%>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/users/sign_out">Sign out</a>
+            </li>
+            <% else%>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/users/sign_in">Sign in</a>
+            </li>
+            <%end%>
             </ul>          
 
             

@@ -144,6 +144,46 @@
 <% end %>
 </div>
 
+<%if current_user!=nil%>
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Edit <%=@the_team.team_name%>
+    </h2>
+
+    <form action="/modify_team/<%=@the_team.id%>" method="post">
+
+
+      <div>
+        <label for="team_name_box">
+          Team name
+        </label>
+
+        <input type="text" id="team_name_box" name="query_team_name" value="<%=@the_team.team_name%>">
+      </div>
+
+      
+      <div>
+        <label for="league_name_box">
+          League name
+        </label>
+
+        <input type="text" id="league_id_box" name="query_league_name" value="<%=League.where({:id=>@the_team.league_id}).at(0).league_name%>">
+      </div>
+
+
+      
+      
+      <button>
+        Edit team
+      </button>
+    </form>
+  </div>
+</div>
+<%end%>
+
 
 <style>
 
@@ -154,7 +194,3 @@
 
 
 </style>
-
-
-
-

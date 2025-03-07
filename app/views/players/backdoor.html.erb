@@ -1,4 +1,6 @@
 
+<%if current_user!=nil%>
+
 <div>
   <div>
     <h2>
@@ -101,3 +103,7 @@
         
         </tbody>
       </table>
+
+<% else%>
+Please <a href="/users/sign_in"> sign in</a> to continue
+<%end%>

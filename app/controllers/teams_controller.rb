@@ -62,10 +62,18 @@ class TeamsController < ApplicationController
     the_id = params.fetch("path_id")
     the_team = Team.where({ :id => the_id }).at(0)
 
-    the_team.team_id = params.fetch("query_team_id")
     the_team.team_name = params.fetch("query_team_name")
-    the_team.number_of_players = params.fetch("query_number_of_players")
-    the_team.position = params.fetch("query_position")
+    this_league_name = params.fetch("query_league_name")
+    league= League.where({:league_name => this_league_name}).at(0)
+    if league==nil
+      flash[:alert] = "League '#{this_league_name}' not found."
+      redirect_to("/teams") and return
+
+    else
+    the_team.league_id = league.id
+    end
+
+
 
     if the_team.valid?
       the_team.save
