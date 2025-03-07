@@ -8,67 +8,39 @@
 
 <hr>
 
-<div>
-  <div>
-    <h2>
-      Add a new match
-    </h2>
+<table class="table table-striped table-hover ">
+      <thead >
+        <tr >
+          <th scope="col">League name</th>
+          <th scope="col">Match date</th>
+          <th scope="col">Home team</th>
+          <th scope="col">Home goals</th>
+          <th scope="col">Away goals</th>
+          <th scope="col">Away Team</th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider">
+      <% matches = Match.all %>
+      <% matches.each do |match| %>
 
-    <form action="/insert_match" method="post">
-      <div>
-        <label for="league_id_box">
-          League
-        </label>
+      <tr>
+           <td><a class="btn btn-primary" href="/leagues/<%=Team.where({ :id => match.home_team_id }).at(0).league_id%>"><%= name = League.where({:id =>Team.where({ :id => match.home_team_id }).at(0).league_id}).at(0).league_name%></a></td>
+           <td><%= match.match_date.strftime('%b %d, %Y') %></td>
+           <td><%= home_teams = Team.where({ :id => match.home_team_id }).at(0).team_name%></td>
+           <td><%= match.home_score %></td>
+           <td><%= match.away_score %></td>
+           <td><%= away_teams = Team.where({ :id => match.away_team_id }).at(0).team_name%></td>
+      </tr>
+      <%end%>
+        
+        </tbody>
+      </table>
 
-        <input type="text" id="league_id_box" name="query_league_id">
-      </div>
 
-      <div>
-        <label for="home_team_id_box">
-          Home team
-        </label>
 
-        <input type="text" id="home_team_id_box" name="query_home_team_id">
-      </div>
 
-      <div>
-        <label for="away_team_id_box">
-          Away team
-        </label>
 
-        <input type="text" id="away_team_id_box" name="query_away_team_id">
-      </div>
 
-      <div>
-        <label for="match_date_box">
-          Match date
-        </label>
-
-        <input type="date" id="match_date_box" name="query_match_date">
-      </div>
-
-      <div>
-        <label for="home_score_box">
-          Home score
-        </label>
-
-        <input type="text" id="home_score_box" name="query_home_score">
-      </div>
-
-      <div>
-        <label for="away_score_box">
-          Away score
-        </label>
-
-        <input type="text" id="away_score_box" name="query_away_score">
-      </div>
-
-      <button>
-        Create match
-      </button>
-    </form>
-  </div>
-</div>
 
 <hr>
 <div>

@@ -24,13 +24,15 @@ class PlayersController < ApplicationController
 
   def create
     the_player = Player.new
-    the_player.player_id = params.fetch("query_player_id")
     the_player.first_name = params.fetch("query_first_name")
     the_player.last_name = params.fetch("query_last_name")
     the_player.position = params.fetch("query_position")
     the_player.jersey_number = params.fetch("query_jersey_number")
     the_player.dob = params.fetch("query_dob")
-    the_player.team_id = params.fetch("query_team_id")
+    this_team_name = params.fetch("query_team_name")
+    team= Team.where({:team_name => this_team_name}).at(0)
+    the_player.team_id = team.id
+    the_player.avatar = params.fetch("query_avatar")
 
     if the_player.valid?
       the_player.save

@@ -109,7 +109,7 @@
         <tr >
           <th scope="col">Team name</th>
           <th scope="col">Number of players</th>
-          <th scope="col">League ID</th>
+          <th scope="col">League Name</th>
           <th scope="col"></th>
           
   </tr>
@@ -120,7 +120,7 @@
           <tr>
             <td><%= a_team.team_name %></td>
             <td><%= a_team.number_of_players %></td>
-            <td><%= a_team.league_id %></td>
+            <td><%= league= League.where({:id=>a_team.league_id}).at(0).league_name %></td>
             <td><a class="align-center btn btn-danger" href="/delete_team/<%= a_team.id %>">
             Delete team
           </a></td>

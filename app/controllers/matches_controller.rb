@@ -25,9 +25,20 @@ class MatchesController < ApplicationController
 
   def create
     the_match = Match.new
-    the_match.league_id = params.fetch("query_league_id")
-    the_match.home_team_id = params.fetch("query_home_team_id")
-    the_match.away_team_id = params.fetch("query_away_team_id")
+    this_league_name = params.fetch("query_league_name")
+    league= League.where({:league_name => this_league_name}).at(0)
+    the_match.league_id = league.id
+   
+    home_team_name = params.fetch("query_home_team_name")
+    teamh= Team.where({:team_name => home_team_name}).at(0)
+    the_match.home_team_id = teamh.id
+    
+    
+    away_team_name = params.fetch("query_away_team_name")
+    teama= Team.where({:team_name => away_team_name}).at(0)
+    the_match.away_team_id = teama.id
+    
+    
     the_match.match_date = params.fetch("query_match_date")
     the_match.home_score = params.fetch("query_home_score")
     the_match.away_score = params.fetch("query_away_score")

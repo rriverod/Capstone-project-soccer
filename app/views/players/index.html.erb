@@ -6,13 +6,14 @@
   </div>
 </div>
 
+<hr>
 
     <table class="table table-striped table-hover ">
       <thead >
         <tr >
           <th scope="col">First name</th>
           <th scope="col">Last name</th>
-          <th scope="col">Team ID</th>
+          <th scope="col">Team name</th>
           <th scope="col"></th>
           
   </tr>
@@ -23,10 +24,9 @@
           <tr>
             <td><%= a_player.first_name %></td>
             <td><%= a_player.last_name %></td>
-            <td><%= a_player.team_id %></td>
+            <td><%= team=Team.where({:id=>a_player.team_id}).at(0).team_name %></td>
             <td><a href="/players/<%=a_player.id%>" class="btn btn-primary ">Show details</a></td>
         <%end%>
         
         </tbody>
       </table>
-
