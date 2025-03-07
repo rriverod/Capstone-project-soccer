@@ -65,6 +65,7 @@
       <thead >
         <tr >
           <th scope="col">League</th>
+          <th scope="col">Number of teams</th>
           <th scope="col"></th>
  </tr>
       </thead>
@@ -73,9 +74,15 @@
         <% leagues.each do |a_league| %>
           <tr>
         <td><%= a_league.league_name %></td>
-        <td><a class="align-center btn btn-danger" href="/delete_league/<%= a_league.id %>">
+        <td><%= num_teams= Team.where({ :league_id => a_league.id }).count%></td>
+        <% if Team.where({ :league_id => a_league.id }).count!=0 %>
+         <td> You can't delete a league that has teams</td>
+        <% else %>
+          <td><a class="align-center btn btn-danger" href="/delete_league/<%= a_league.id %>">
             Delete league
           </a></td>
+        <% end %>
+        
           <% end%>
 
           </tbody>
