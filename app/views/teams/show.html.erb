@@ -4,84 +4,80 @@
       <%= @the_team.team_name %>
     </h1>
 
-</div>
+  </div>
 </div>
 
 <div>
- <div>
+  <div>
     <h1 class=" fs-2">
       League
     </h1>
 
-</div>
-   <a class="align-center btn btn-success" href="/leagues/<%=id=League.where({:id => @the_team.league_id}).at(0).id%>" ><%=league=League.where({:id => @the_team.league_id}).at(0).league_name%></a>
+  </div>
+  <a class="align-center btn btn-success" href="/leagues/<%=id=League.where({:id => @the_team.league_id}).at(0).id%>" ><%=league=League.where({:id => @the_team.league_id}).at(0).league_name%></a>
 </div>
 
 <hr>
 
 <div>
-    <h1 class="fs-2">
-      Summary
-    </h1>
+  <h1 class="fs-2">
+    Summary
+  </h1>
 </div>
 
 <table class="table table-striped table-hover ">
-      <thead >
-        <tr >
-          <th scope="col">Team name</th>
-          <th scope="col">Number of players</th>
-          <th scope="col">Wins</th>
-          <th scope="col">Draws</th>
-          <th scope="col">Losses</th>
-          <th scope="col">Goals for</th>
-          <th scope="col">Goals against</th>
-          <th scope="col">GD</th>
-          <th scope="col">Points</th>
-          </thead>
-      <tbody class="table-group-divider">
+  <thead >
+    <tr >
+      <th scope="col">Team name</th>
+      <th scope="col">Number of players</th>
+      <th scope="col">Wins</th>
+      <th scope="col">Draws</th>
+      <th scope="col">Losses</th>
+      <th scope="col">Goals for</th>
+      <th scope="col">Goals against</th>
+      <th scope="col">GD</th>
+      <th scope="col">Points</th>
+    </thead>
+    <tbody class="table-group-divider">
 
-        
-          <tr>
-            
-            <td><%= @the_team.team_name %></td>
-            <td><%= num_players= Player.where({ :team_id => @the_team.id }).count %></td>
-            <td>
-              <% home_wins = Match.where({ :home_team_id => @the_team.id }).where('home_score > away_score').count%>
-              <% away_wins = Match.where({ :away_team_id => @the_team.id }).where('away_score > home_score').count%>
-              <%=wins = home_wins + away_wins%>
-            </td>
-            <td>
-              <% home_draws = Match.where({ :home_team_id => @the_team.id }).where('home_score = away_score').count%>
-              <% away_draws = Match.where({ :away_team_id => @the_team.id }).where('away_score = home_score').count%>
-              <%=draws = home_draws + away_draws%>
-            </td>
-            <td>
-              <% home_losses = Match.where({ :home_team_id => @the_team.id }).where('home_score < away_score').count%>
-              <% away_losses = Match.where({ :away_team_id => @the_team.id }).where('away_score < home_score').count%>
-              <%=losses = home_losses + away_losses%>
-            </td>
-            <td><%= goals_for = Match.where({ :home_team_id => @the_team.id }).sum(:home_score) + 
+      <tr>
+
+        <td><%= @the_team.team_name %></td>
+        <td><%= num_players= Player.where({ :team_id => @the_team.id }).count %></td>
+        <td>
+          <% home_wins = Match.where({ :home_team_id => @the_team.id }).where('home_score > away_score').count%>
+          <% away_wins = Match.where({ :away_team_id => @the_team.id }).where('away_score > home_score').count%>
+          <%=wins = home_wins + away_wins%>
+        </td>
+        <td>
+          <% home_draws = Match.where({ :home_team_id => @the_team.id }).where('home_score = away_score').count%>
+          <% away_draws = Match.where({ :away_team_id => @the_team.id }).where('away_score = home_score').count%>
+          <%=draws = home_draws + away_draws%>
+        </td>
+        <td>
+          <% home_losses = Match.where({ :home_team_id => @the_team.id }).where('home_score < away_score').count%>
+          <% away_losses = Match.where({ :away_team_id => @the_team.id }).where('away_score < home_score').count%>
+          <%=losses = home_losses + away_losses%>
+        </td>
+        <td><%= goals_for = Match.where({ :home_team_id => @the_team.id }).sum(:home_score) + 
           Match.where({ :away_team_id => @the_team.id }).sum(:away_score)%></td>
-            <td><%= goals_against = Match.where({ :home_team_id => @the_team.id }).sum(:away_score) + 
+        <td><%= goals_against = Match.where({ :home_team_id => @the_team.id }).sum(:away_score) + 
           Match.where({ :away_team_id => @the_team.id }).sum(:home_score)%></td>
-            <td><%= gd= goals_for - goals_against %></td>
-            <td><%= points = (wins * 3) + (draws * 1)%></td>
+        <td><%= gd= goals_for - goals_against %></td>
+        <td><%= points = (wins * 3) + (draws * 1)%></td>
 
+      </tbody>
+    </table>
 
-        </tbody>
-      </table>
+    <hr>
 
+    <div>
+      <h1 class="fs-2">
+        Played matches
+      </h1>
+    </div>
 
-
-<hr>
-
-<div>
-    <h1 class="fs-2">
-      Played matches
-    </h1>
-</div>
-
-<table class="table table-striped table-hover ">
+    <table class="table table-striped table-hover ">
       <thead >
         <tr >
           <th scope="col">Match date</th>
@@ -90,109 +86,92 @@
           <th scope="col">Away goals</th>
           <th scope="col">Away Team</th>
           <th scope="col"></th>
-      </tr>
+        </tr>
       </thead>
       <tbody class="table-group-divider">
-      <% matches = Match.where({ :home_team_id => @the_team.id }).or(Match.where({ :away_team_id => @the_team.id })).order(match_date: :desc) %>
-      <% matches.each do |match| %>
+        <% matches = Match.where({ :home_team_id => @the_team.id }).or(Match.where({ :away_team_id => @the_team.id })).order(match_date: :desc) %>
+        <% matches.each do |match| %>
 
-      <tr>
-           <td><%= match.match_date.strftime('%b %d, %Y') %></td>
-           <td><%= home_teams = Team.where({ :id => match.home_team_id }).at(0).team_name%></td>
-           <td><%= match.home_score %></td>
-           <td><%= match.away_score %></td>
-           <td><%= away_teams = Team.where({ :id => match.away_team_id }).at(0).team_name%></td>
-           <td><a  class="align-center btn btn-primary" href="/matches/<%=match.id%>" >Show details</a></td>
-      </tr>
-      <%end%>
-        
-        </tbody>
-      </table>
+          <tr>
+            <td><%= match.match_date.strftime('%b %d, %Y') %></td>
+            <td><%= home_teams = Team.where({ :id => match.home_team_id }).at(0).team_name%></td>
+            <td><%= match.home_score %></td>
+            <td><%= match.away_score %></td>
+            <td><%= away_teams = Team.where({ :id => match.away_team_id }).at(0).team_name%></td>
+            <td><a  class="align-center btn btn-primary" href="/matches/<%=match.id%>" >Show details</a></td>
+          </tr>
+        <%end%>
 
+      </tbody>
+    </table>
 
+    <hr>
 
+    <div>
+      <h1 class="fs-2">
+        Teammates
+      </h1>
+    </div>
 
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <% @list_of_players.each do |a_player| %>
 
-<hr>
+        <div class="col">
 
+          <div class="card border-secondary shadow p-3 mb-5 bg-body-tertiary rounded" >
+            <img src=<%=a_player.avatar%> class="card-img-top card-img-top-RR" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center fs-4"><%= a_player.first_name%> <%=a_player.last_name%></h5>
+              <h6 class="card-subtitle mb-2 text-center text-body-secondary"><%=a_player.dob.strftime('%b %d, %Y')%></h6>
+              <h6 class="card-text fw-bold">Position: <%=a_player.position%></h6>
+              <h6 class="card-text fw-bold">Jersey number: <%=a_player.jersey_number%></h6>
+              <a  class="align-center btn btn-primary" href="/players/<%=a_player.id%>" >Show details</a>
 
-<div>
-    <h1 class="fs-2">
-      Teammates
-    </h1>
-</div>
+            </div>
+          </div>
+        </div>
 
-<div class="row row-cols-1 row-cols-md-4 g-4">
-<% @list_of_players.each do |a_player| %>
+      <% end %>
+    </div>
 
-<div class="col">
-
-
-
-<div class="card border-secondary shadow p-3 mb-5 bg-body-tertiary rounded" >
-  <img src=<%=a_player.avatar%> class="card-img-top card-img-top-RR" alt="...">
-  <div class="card-body">
-    <h5 class="card-title text-center fs-4"><%= a_player.first_name%> <%=a_player.last_name%></h5>
-    <h6 class="card-subtitle mb-2 text-center text-body-secondary"><%=a_player.dob.strftime('%b %d, %Y')%></h6>
-    <h6 class="card-text fw-bold">Position: <%=a_player.position%></h6>
-    <h6 class="card-text fw-bold">Jersey number: <%=a_player.jersey_number%></h6>
-    <a  class="align-center btn btn-primary" href="/players/<%=a_player.id%>" >Show details</a>
-
-  </div>
-</div>
-</div>
-
-
-<% end %>
-</div>
-
-<%if current_user!=nil%>
-<hr>
-
-<div>
-  <div>
-    <h2>
-      Edit <%=@the_team.team_name%>
-    </h2>
-
-    <form action="/modify_team/<%=@the_team.id%>" method="post">
-
+    <%if current_user!=nil%>
+      <hr>
 
       <div>
-        <label for="team_name_box">
-          Team name
-        </label>
+        <div>
+          <h2>
+            Edit <%=@the_team.team_name%>
+          </h2>
 
-        <input type="text" id="team_name_box" name="query_team_name" value="<%=@the_team.team_name%>">
+          <form action="/modify_team/<%=@the_team.id%>" method="post">
+
+            <div>
+              <label for="team_name_box">
+                Team name
+              </label>
+
+              <input type="text" id="team_name_box" name="query_team_name" value="<%=@the_team.team_name%>">
+            </div>
+
+            <div>
+              <label for="league_name_box">
+                League name
+              </label>
+
+              <input type="text" id="league_id_box" name="query_league_name" value="<%=League.where({:id=>@the_team.league_id}).at(0).league_name%>">
+            </div>
+
+            <button>
+              Edit team
+            </button>
+          </form>
+        </div>
       </div>
+    <%end%>
 
-      
-      <div>
-        <label for="league_name_box">
-          League name
-        </label>
-
-        <input type="text" id="league_id_box" name="query_league_name" value="<%=League.where({:id=>@the_team.league_id}).at(0).league_name%>">
-      </div>
-
-
-      
-      
-      <button>
-        Edit team
-      </button>
-    </form>
-  </div>
-</div>
-<%end%>
-
-
-<style>
-
-   .card-img-top-RR {
-       width: 100%;
-       height: 250px;
-       object-fit: cover;}
-
-
-</style>
+    <style>
+      .card-img-top-RR {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;}
+    </style>

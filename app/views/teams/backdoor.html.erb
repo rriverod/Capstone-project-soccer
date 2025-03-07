@@ -1,139 +1,134 @@
 <%if current_user!=nil%>
 
-<div>
   <div>
-    <h2>
-      Add a new team
-    </h2>
+    <div>
+      <h2>
+        Add a new team
+      </h2>
 
-    <form action="/insert_team" method="post">
+      <form action="/insert_team" method="post">
 
+        <div>
+          <label for="team_name_box">
+            Team name
+          </label>
 
-      <div>
-        <label for="team_name_box">
-          Team name
-        </label>
+          <input type="text" id="team_name_box" name="query_team_name">
+        </div>
 
-        <input type="text" id="team_name_box" name="query_team_name">
-      </div>
+        <div>
+          <label for="league_name_box">
+            League name
+          </label>
 
-      
-      <div>
-        <label for="league_name_box">
-          League name
-        </label>
+          <input type="text" id="league_id_box" name="query_league_name">
+        </div>
 
-        <input type="text" id="league_id_box" name="query_league_name">
-      </div>
+        <div>
+          <label for="number_of_players_box">
+            Number of players
+          </label>
 
-      <div>
-        <label for="number_of_players_box">
-          Number of players
-        </label>
+          <input type="text" id="number_of_players_box" name="query_number_of_players" value=0>
+        </div>
 
-        <input type="text" id="number_of_players_box" name="query_number_of_players" value=0>
-      </div>
+        <div>
+          <label for="goals_for_box">
+            Goals for
+          </label>
 
-      <div>
-        <label for="goals_for_box">
-          Goals for
-        </label>
+          <input type="text" id="goals_for_box" name="query_goals_for" value=0>
+        </div>
 
-        <input type="text" id="goals_for_box" name="query_goals_for" value=0>
-      </div>
+        <div>
+          <label for="goals_against_box">
+            Goals against
+          </label>
 
-      <div>
-      <label for="goals_against_box">
-          Goals against
-        </label>
+          <input type="text" id="goals_against_box" name="query_goals_against" value=0>
+        </div>
 
-        <input type="text" id="goals_against_box" name="query_goals_against" value=0>
-      </div>
+        <div>
+          <label for="goal_difference_box">
+            Goal difference
+          </label>
 
-<div>
-      <label for="goal_difference_box">
-          Goal difference
-        </label>
+          <input type="text" id="goal_difference_box" name="query_goal_difference" value=0>
+        </div>
 
-        <input type="text" id="goal_difference_box" name="query_goal_difference" value=0>
-      </div>
+        <div>
+          <label for="wins_box">
+            Wins
+          </label>
 
-      <div>
-      <label for="wins_box">
-          Wins
-        </label>
+          <input type="text" id="wins_box" name="query_wins" value=0>
+        </div>
+        <div>
+          <label for="draws_box">
+            Draws
+          </label>
 
-        <input type="text" id="wins_box" name="query_wins" value=0>
-      </div>
-<div>
-      <label for="draws_box">
-          Draws
-        </label>
+          <input type="text" id="draws_box" name="query_draws" value=0>
+        </div>
+        <div>
+          <label for="losses_box">
+            Losses
+          </label>
 
-        <input type="text" id="draws_box" name="query_draws" value=0>
-      </div>
-<div>
-      <label for="losses_box">
-          Losses
-        </label>
+          <input type="text" id="losses_box" name="query_losses" value=0>
+        </div>
 
-        <input type="text" id="losses_box" name="query_losses" value=0>
-      </div>
+        <div>
+          <label for="points_box">
+            Points
+          </label>
 
-<div>
-      <label for="points_box">
-          Points
-        </label>
+          <input type="text" id="points_box" name="query_points" value=0>
+        </div>
 
-        <input type="text" id="points_box" name="query_points" value=0>
-      </div>
-
-      
-      
-      <button>
-        Create team
-      </button>
-    </form>
+        <button>
+          Create team
+        </button>
+      </form>
+    </div>
   </div>
-</div>
 
+  <hr>
 
-<hr>
-
- <div>
+  <div>
     <h2>
       Delete a team
     </h2>
   </div>
-    <table class="table table-striped table-hover table-sm">
-      <thead >
-        <tr >
-          <th scope="col">Team name</th>
-          <th scope="col">Number of players</th>
-          <th scope="col">League Name</th>
-          <th scope="col"></th>
-          
-  </tr>
-      </thead>
-      <tbody class="table-group-divider">
-       <% teams=Team.all %>
-        <% teams.each do |a_team| %>
-          <tr>
-            <td><%= a_team.team_name %></td>
-            <td><%= num_players= Player.where({ :team_id => a_team.id }).count %></td>
-            <td><%= league= League.where({:id=>a_team.league_id}).at(0).league_name %></td>
-            <% if num_players!=0 %>
-         <td> You can't delete a team that has players</td>
-        <% else %>
-            <td><a class="align-center btn btn-danger" href="/delete_team/<%= a_team.id %>">
-            Delete team
-          </a></td>
-        <%end%>
-        <%end%>
-        
-        </tbody>
-      </table>
+  <table class="table table-striped table-hover table-sm">
+    <thead >
+      <tr >
+        <th scope="col">Team name</th>
+        <th scope="col">Number of players</th>
+        <th scope="col">League Name</th>
+        <th scope="col"></th>
 
-<% else%>
-Please <a href="/users/sign_in"> sign in</a> to continue
-<%end%>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% teams=Team.all %>
+      <% teams.each do |a_team| %>
+        <tr>
+          <td><%= a_team.team_name %></td>
+          <td><%= num_players= Player.where({ :team_id => a_team.id }).count %></td>
+          <td><%= league= League.where({:id=>a_team.league_id}).at(0).league_name %></td>
+          <% if num_players!=0 %>
+            <td> You can't delete a team that has players</td>
+          <% else %>
+            <td><a class="align-center btn btn-danger" href="/delete_team/<%= a_team.id %>">
+                Delete team
+              </a></td>
+          <%end%>
+        <%end%>
+
+      </tbody>
+    </table>
+
+  <% else%>
+    Please <a href="/users/sign_in"> sign in</a> to continue
+  <%end%>

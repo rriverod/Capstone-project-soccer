@@ -1,94 +1,92 @@
 <%if current_user!=nil%>
-<div>
   <div>
-    <h2>
-      Add a new league
-    </h2>
+    <div>
+      <h2>
+        Add a new league
+      </h2>
 
-    <form action="/insert_league" method="post">
-     
-      <div>
-        <label for="league_name_box">
-          League name
-        </label>
+      <form action="/insert_league" method="post">
 
-        <input type="text" id="league_name_box" name="query_league_name">
-      </div>
+        <div>
+          <label for="league_name_box">
+            League name
+          </label>
 
-      <div>
-        <label for="start_date_box">
-          Start date
-        </label>
+          <input type="text" id="league_name_box" name="query_league_name">
+        </div>
 
-        <input type="date" id="start_date_box" name="query_start_date">
-      </div>
+        <div>
+          <label for="start_date_box">
+            Start date
+          </label>
 
-      <div>
-        <label for="end_date_box">
-          End date
-        </label>
+          <input type="date" id="start_date_box" name="query_start_date">
+        </div>
 
-        <input type="date" id="end_date_box" name="query_end_date">
-      </div>
+        <div>
+          <label for="end_date_box">
+            End date
+          </label>
 
-      <div>
-        <label for="number_of_teams_box">
-          Number of teams
-        </label>
+          <input type="date" id="end_date_box" name="query_end_date">
+        </div>
 
-        <input type="text" id="number_of_teams_box" name="query_number_of_teams" value="0">
-      </div>
+        <div>
+          <label for="number_of_teams_box">
+            Number of teams
+          </label>
 
-      
-      <div>
-        <label for="image_box">
-          Image
-        </label>
+          <input type="text" id="number_of_teams_box" name="query_number_of_teams" value="0">
+        </div>
 
-        <input type="text" id="image_box" name="query_image" value="/img/logo3.jpg">
-      </div>
+        <div>
+          <label for="image_box">
+            Image
+          </label>
 
-      <button>
-        Create league
-      </button>
-    </form>
+          <input type="text" id="image_box" name="query_image" value="/img/logo3.jpg">
+        </div>
+
+        <button>
+          Create league
+        </button>
+      </form>
+    </div>
   </div>
-</div>
 
-<hr> 
+  <hr>
   <div>
     <h2>
       Delete a league
     </h2>
-</div>
-<table class="table table-striped table-hover table-sm ">
-      <thead >
-        <tr >
-          <th scope="col">League</th>
-          <th scope="col">Number of teams</th>
-          <th scope="col"></th>
- </tr>
-      </thead>
-      <tbody class="table-group-divider">
-        <% leagues = League.all %>
-        <% leagues.each do |a_league| %>
-          <tr>
-        <td><%= a_league.league_name %></td>
-        <td><%= num_teams= Team.where({ :league_id => a_league.id }).count%></td>
-        <% if Team.where({ :league_id => a_league.id }).count!=0 %>
-         <td> You can't delete a league that has teams</td>
-        <% else %>
-          <td><a class="align-center btn btn-danger" href="/delete_league/<%= a_league.id %>">
-            Delete league
-          </a></td>
-        <% end %>
-        
-          <% end%>
+  </div>
+  <table class="table table-striped table-hover table-sm ">
+    <thead >
+      <tr >
+        <th scope="col">League</th>
+        <th scope="col">Number of teams</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% leagues = League.all %>
+      <% leagues.each do |a_league| %>
+        <tr>
+          <td><%= a_league.league_name %></td>
+          <td><%= num_teams= Team.where({ :league_id => a_league.id }).count%></td>
+          <% if Team.where({ :league_id => a_league.id }).count!=0 %>
+            <td> You can't delete a league that has teams</td>
+          <% else %>
+            <td><a class="align-center btn btn-danger" href="/delete_league/<%= a_league.id %>">
+                Delete league
+              </a></td>
+          <% end %>
 
-          </tbody>
-      </table>
+        <% end%>
 
-<% else%>
-Please <a href="/users/sign_in"> sign in</a> to continue
-<%end%>
-      
+      </tbody>
+    </table>
+
+  <% else%>
+    Please <a href="/users/sign_in"> sign in</a> to continue
+  <%end%>

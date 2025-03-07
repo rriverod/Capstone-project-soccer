@@ -1,66 +1,66 @@
 <%if current_user!=nil%>
 
-<div>
   <div>
-    <h2>
-      Add a new match
-    </h2>
+    <div>
+      <h2>
+        Add a new match
+      </h2>
 
-    <form action="/insert_match" method="post">
-      <div>
-        <label for="league_name_box">
-          League name
-        </label>
+      <form action="/insert_match" method="post">
+        <div>
+          <label for="league_name_box">
+            League name
+          </label>
 
-        <input type="text" id="league_name_box" name="query_league_name">
-      </div>
+          <input type="text" id="league_name_box" name="query_league_name">
+        </div>
 
-      <div>
-        <label for="home_team_name_box">
-          Home team name
-        </label>
+        <div>
+          <label for="home_team_name_box">
+            Home team name
+          </label>
 
-        <input type="text" id="home_team_name_box" name="query_home_team_name">
-      </div>
+          <input type="text" id="home_team_name_box" name="query_home_team_name">
+        </div>
 
-      <div>
-        <label for="away_team_name_box">
-          Away team name
-        </label>
+        <div>
+          <label for="away_team_name_box">
+            Away team name
+          </label>
 
-        <input type="text" id="away_team_name_box" name="query_away_team_name">
-      </div>
+          <input type="text" id="away_team_name_box" name="query_away_team_name">
+        </div>
 
-      <div>
-        <label for="match_date_box">
-          Match date
-        </label>
+        <div>
+          <label for="match_date_box">
+            Match date
+          </label>
 
-        <input type="date" id="match_date_box" name="query_match_date">
-      </div>
+          <input type="date" id="match_date_box" name="query_match_date">
+        </div>
 
-      <div>
-        <label for="home_score_box">
-          Home score
-        </label>
+        <div>
+          <label for="home_score_box">
+            Home score
+          </label>
 
-        <input type="text" id="home_score_box" name="query_home_score" value=0>
-      </div>
+          <input type="text" id="home_score_box" name="query_home_score" value=0>
+        </div>
 
-      <div>
-        <label for="away_score_box">
-          Away score
-        </label>
+        <div>
+          <label for="away_score_box">
+            Away score
+          </label>
 
-        <input type="text" id="away_score_box" name="query_away_score" value=0>
-      </div>
+          <input type="text" id="away_score_box" name="query_away_score" value=0>
+        </div>
 
-      <button>
-        Create match
-      </button>
-    </form>
+        <button>
+          Create match
+        </button>
+      </form>
+    </div>
   </div>
-</div>
 
   <div>
     <h2>
@@ -68,38 +68,38 @@
     </h2>
   </div>
 
-<hr>
+  <hr>
 
-<table class="table table-striped table-hover ">
-      <thead >
-        <tr >
-          <th scope="col">League name</th>
-          <th scope="col">Match date</th>
-          <th scope="col">Home team</th>
-          <th scope="col">Home goals</th>
-          <th scope="col">Away goals</th>
-          <th scope="col">Away team</th>
-          <th scope="col"></th>
+  <table class="table table-striped table-hover ">
+    <thead >
+      <tr >
+        <th scope="col">League name</th>
+        <th scope="col">Match date</th>
+        <th scope="col">Home team</th>
+        <th scope="col">Home goals</th>
+        <th scope="col">Away goals</th>
+        <th scope="col">Away team</th>
+        <th scope="col"></th>
       </tr>
-      </thead>
-      <tbody class="table-group-divider">
+    </thead>
+    <tbody class="table-group-divider">
       <% matches = Match.all %>
       <% matches.each do |match| %>
 
-      <tr>
-           <td><%= name = League.where({:id =>Team.where({ :id => match.home_team_id }).at(0).league_id}).at(0).league_name%></td>
-           <td><%= match.match_date.strftime('%b %d, %Y') %></td>
-           <td><%= home_teams = Team.where({ :id => match.home_team_id }).at(0).team_name%></td>
-           <td><%= match.home_score %></td>
-           <td><%= match.away_score %></td>
-           <td><%= away_teams = Team.where({ :id => match.away_team_id }).at(0).team_name%></td>
-           <td><a class="align-center btn btn-danger" href="/delete_match/<%= match.id %>">Delete match</a></td>
-      </tr>
+        <tr>
+          <td><%= name = League.where({:id =>Team.where({ :id => match.home_team_id }).at(0).league_id}).at(0).league_name%></td>
+          <td><%= match.match_date.strftime('%b %d, %Y') %></td>
+          <td><%= home_teams = Team.where({ :id => match.home_team_id }).at(0).team_name%></td>
+          <td><%= match.home_score %></td>
+          <td><%= match.away_score %></td>
+          <td><%= away_teams = Team.where({ :id => match.away_team_id }).at(0).team_name%></td>
+          <td><a class="align-center btn btn-danger" href="/delete_match/<%= match.id %>">Delete match</a></td>
+        </tr>
       <%end%>
-        
-        </tbody>
-      </table>
+
+    </tbody>
+  </table>
 
 <% else%>
-Please <a href="/users/sign_in"> sign in</a> to continue
+  Please <a href="/users/sign_in"> sign in</a> to continue
 <%end%>

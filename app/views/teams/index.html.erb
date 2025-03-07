@@ -7,25 +7,25 @@
 </div>
 
 <hr>
-    <table class="table table-striped table-hover ">
-      <thead >
-        <tr >
-          <th scope="col">Team name</th>
-          <th scope="col">Number of players</th>
-          <th scope="col">League name</th>
-          <th scope="col"></th>
-          
-  </tr>
-      </thead>
-      <tbody class="table-group-divider">
-       <% teams=Team.all %>
-        <% teams.each do |a_team| %>
-          <tr>
-            <td><%= a_team.team_name %></td>
-            <td><%= num_players= Player.where({ :team_id => a_team.id }).count %></td>
-            <td><%= league= League.where({:id=>a_team.league_id}).at(0).league_name  %></td>
-            <td><a href="/teams/<%=a_team.id%>" class="btn btn-primary ">Show details</a></td>
-        <%end%>
-        
-        </tbody>
-      </table>
+<table class="table table-striped table-hover ">
+  <thead >
+    <tr >
+      <th scope="col">Team name</th>
+      <th scope="col">Number of players</th>
+      <th scope="col">League name</th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <% teams=Team.all %>
+    <% teams.each do |a_team| %>
+      <tr>
+        <td><%= a_team.team_name %></td>
+        <td><%= num_players= Player.where({ :team_id => a_team.id }).count %></td>
+        <td><%= league= League.where({:id=>a_team.league_id}).at(0).league_name  %></td>
+        <td><a href="/teams/<%=a_team.id%>" class="btn btn-primary ">Show details</a></td>
+      <%end%>
+
+    </tbody>
+  </table>
