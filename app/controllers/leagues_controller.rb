@@ -43,13 +43,10 @@ class LeaguesController < ApplicationController
   def update
     the_id = params.fetch("path_id")
     the_league = League.where({ :id => the_id }).at(0)
-
-    the_league.league_id = params.fetch("query_league_id")
     the_league.league_name = params.fetch("query_league_name")
     the_league.start_date = params.fetch("query_start_date")
     the_league.end_date = params.fetch("query_end_date")
-    the_league.number_of_teams = params.fetch("query_number_of_teams")
-
+   
     if the_league.valid?
       the_league.save
       redirect_to("/leagues/#{the_league.id}", { :notice => "League updated successfully."} )
